@@ -1,5 +1,4 @@
 
-
 import java.util.ArrayList;
 
 public class C206_CaseStudy {
@@ -8,61 +7,85 @@ public class C206_CaseStudy {
 
 		ArrayList<Items> menuList = new ArrayList<Items>();
 		ArrayList<userAccount> accountList = new ArrayList<userAccount>();
+		ArrayList<lunchbox> lunchboxlist = new ArrayList<lunchbox>();
+		
+		menuList.add(new Items("Chicken Rice", "3.00", "YES"));
+		menuList.add(new Items("Fried Rice", "3.50", "YES"));
+		menuList.add(new Items("Nasi Lemak", "2.50", "YES"));
 
-		menuList.add(new Items("Chicken Rice", "3.00" , "YES" ));
-		menuList.add(new Items("Fried Rice", "3.50" , "YES" ));
-		menuList.add(new Items("Nasi Lemak", "2.50" , "YES" ));
-		
-		menuList.add(new Items("Fish and Chip", "5.50" , "YES" ));
-		menuList.add(new Items("Aglio olio", "3.50" , "YES" ));
-		
-		menuList.add(new Items("Vegetarian bee hoon", "2.50" , "YES" ));
-		menuList.add(new Items("Prata set ", "2.50" , "YES" ));
-		
-		menuList.add(new Items("Ice milo", "1.50" , "YES" ));
-		menuList.add(new Items("Ribena", "1.50" , "YES" ));
-		menuList.add(new Items("Pokka Green tea", "1.80" , "YES" ));
-		
-		menuList.add(new Items("Strawberries", "0.80" , "YES" ));
-		menuList.add(new Items("Watermelon", "0.80" , "YES" ));
-		menuList.add(new Items("Banana", "0.80" , "YES" ));
-		
+		menuList.add(new Items("Fish and Chip", "5.50", "YES"));
+		menuList.add(new Items("Aglio olio", "3.50", "YES"));
+
+		menuList.add(new Items("Vegetarian bee hoon", "2.50", "YES"));
+		menuList.add(new Items("Prata set ", "2.50", "YES"));
+
+		menuList.add(new Items("Ice milo", "1.50", "YES"));
+		menuList.add(new Items("Ribena", "1.50", "YES"));
+		menuList.add(new Items("Pokka Green tea", "1.80", "YES"));
+
+		menuList.add(new Items("Strawberries", "0.80", "YES"));
+		menuList.add(new Items("Watermelon", "0.80", "YES"));
+		menuList.add(new Items("Banana", "0.80", "YES"));
+
 		int option = 0;
 
 		while (option != 3) {
 
 			C206_CaseStudy.menu();
 			option = Helper.readInt("Enter an option > ");
-			
-			if(option == 1) {
-				
+
+			if (option == 1) {
+
 				int option2 = 0;
-				
+
 				while (option2 != 4) {
-					
+
 					C206_CaseStudy.AcctMenu();
 					option2 = Helper.readInt("Enter an option > ");
-					
-					if(option2 == 1) {
+
+					if (option2 == 1) {
 						C206_CaseStudy.viewAllAccount(accountList);
-					}else if(option2 == 2) {
+					} else if (option2 == 2) {
 						userAccount acc = inputaccount();
 						C206_CaseStudy.addacc(accountList, acc);
-					}else if(option2 == 3) {
+					} else if (option2 == 3) {
 						userAccount acc = inputaccount();
 						C206_CaseStudy.deleteacc(accountList, acc);
-					}else if(option2 == 4) {
+					} else if (option2 == 4) {
 						C206_CaseStudy.menu();
-					}else {
+					} else {
 						System.out.println("Invalid option");
 					}
 				}
-				
-				
-			}else if (option == 2) {
+
+			} else if (option == 2) {
 				C206_CaseStudy.viewAllItems(menuList);
-				
-			}else if (option == 3) {
+
+				int option3 = 0;
+
+				while (option3 != 4) {
+
+					C206_CaseStudy.LBMenu();
+					option3 = Helper.readInt("Enter an option > ");
+
+					if (option3 == 1) {
+						lunchbox acc = inputlunchbox();
+						C206_CaseStudy.addlunchbox(lunchboxlist, acc);
+					} else if (option3 == 2) {
+						C206_CaseStudy.viewlunchboxorder(lunchboxlist);
+					} else if (option3 == 3) {
+						lunchbox acc = inputlunchbox();
+						C206_CaseStudy.deletelunchorder(lunchboxlist, acc);
+					} else if (option3 == 4) {
+						C206_CaseStudy.menu();
+					} else {
+						System.out.println("Invalid option");
+					}
+				}
+
+				C206_CaseStudy.viewAllItems(menuList);
+
+			} else if (option == 3) {
 				System.out.println("Bye!");
 			} else {
 				System.out.println("Invalid option");
@@ -70,12 +93,22 @@ public class C206_CaseStudy {
 		}
 
 	}
-	
+
 	public static void AcctMenu() {
 		C206_CaseStudy.setHeader("ACCOUNT");
 		System.out.println("1. View Account");
 		System.out.println("2. Add Account");
 		System.out.println("3. Delete Account");
+		System.out.println("4. Main Menu");
+		Helper.line(80, "-");
+
+	}
+
+	public static void LBMenu() {
+		C206_CaseStudy.setHeader("LUNCHBOX ORDER");
+		System.out.println("1. Add lunchbox order");
+		System.out.println("2. Retrieve order");
+		System.out.println("3. Delete order");
 		System.out.println("4. Main Menu");
 		Helper.line(80, "-");
 
@@ -105,86 +138,134 @@ public class C206_CaseStudy {
 		}
 		return avail;
 	}
-	
-	
+
 	public static String retrieveAllItems(ArrayList<Items> menuList) {
 		String output = "";
 		for (int i = 0; i < menuList.size(); i++) {
-			output += String.format("%-20s %-15s %-10s\n", menuList.get(i).getItem(),
-					menuList.get(i).getCost(), 
+			output += String.format("%-20s %-15s %-10s\n", menuList.get(i).getItem(), menuList.get(i).getCost(),
 					C206_CaseStudy.showAvailability(menuList.get(i).getIsAvailable()));
-					
+
 		}
 		return output;
 	}
-	
+
 	public static void viewAllItems(ArrayList<Items> menuList) {
 		C206_CaseStudy.setHeader("Menu LIST");
-		String output = String.format("%-20s %-15s %-10s\n", "ITEM", "COST",
-				"AVAILABLE");
-		 output += retrieveAllItems(menuList);	
+		String output = String.format("%-20s %-15s %-10s\n", "ITEM", "COST", "AVAILABLE");
+		output += retrieveAllItems(menuList);
 		System.out.println(output);
 
 	}
+
 	public static String retrieveAllacc(ArrayList<userAccount> accountList) {
-	    String output = "";
+		String output = "";
 
-	    for (int i = 0; i < accountList.size(); i++) {
-	      userAccount accountlist = accountList.get(i);
-	      output += String.format("%-40s %-20s\n", accountlist.getUsername(), accountlist.getPassword());
-	    }
+		for (int i = 0; i < accountList.size(); i++) {
+			userAccount accountlist = accountList.get(i);
+			output += String.format("%-40s %-20s\n", accountlist.getUsername(), accountlist.getPassword());
+		}
 
-	    return (output);
-	  }
+		return (output);
+	}
 
-	  // USER ACCOUNT
-	  private static void viewAllAccount(ArrayList<userAccount> accountList) {
-	    Helper.line(80, "-");
-	    System.out.println("VIEW Accounts");
-	    Helper.line(80, "-");
+	// USER ACCOUNT
+	private static void viewAllAccount(ArrayList<userAccount> accountList) {
+		Helper.line(80, "-");
+		System.out.println("VIEW Accounts");
+		Helper.line(80, "-");
 
-	    String output = String.format("%-40s %-20s\n", "USERNAME", "PASSWORD");
-	    output += retrieveAllacc(accountList);
+		String output = String.format("%-40s %-20s\n", "USERNAME", "PASSWORD");
+		output += retrieveAllacc(accountList);
 
-	    System.out.println(output);
+		System.out.println(output);
 
-	  }
+	}
 
-	  public static userAccount inputaccount() {
-	    String username = Helper.readString("Enter username > ");
-	    String password = Helper.readString("Enter password > ");
+	public static userAccount inputaccount() {
+		String username = Helper.readString("Enter username > ");
+		String password = Helper.readString("Enter password > ");
 
-	    userAccount acc = new userAccount(username, password);
+		userAccount acc = new userAccount(username, password);
 
-	    return acc;
+		return acc;
 
-	  }
+	}
 
-	  public static void addacc(ArrayList<userAccount> accountList, userAccount acc) {
+	public static void addacc(ArrayList<userAccount> accountList, userAccount acc) {
 
-	    accountList.add(acc);
-	    System.out.println("Account added!");
+		accountList.add(acc);
+		System.out.println("Account added!");
 
-	  }
+	}
 
-	  public static void deleteacc(ArrayList<userAccount> accountList, userAccount acc) {
-	    boolean accFound = false;
+	public static void deleteacc(ArrayList<userAccount> accountList, userAccount acc) {
+		boolean accFound = false;
 
-	    for (int i = 0; i < accountList.size(); i++) {
-	      if (acc.getUsername().equals(accountList.get(i).getUsername())) {
-	        accFound = true;
-	        if (accFound == false) {
-	          System.out.println("Username not found");
-	        } else {
-	          accountList.remove(i);
-	          System.out.println("Account deleted!");
-	        }
-	        accountList.remove(acc);
+		for (int i = 0; i < accountList.size(); i++) {
+			if (acc.getUsername().equals(accountList.get(i).getUsername())) {
+				accFound = true;
+				if (accFound == false) {
+					System.out.println("Username not found");
+				} else {
+					accountList.remove(i);
+					System.out.println("Account deleted!");
+				}
+				accountList.remove(acc);
 
-	      }
-	    }
+			}
+		}
+	}
 
-	  }
-	
+	public static void viewlunchboxorder(ArrayList<lunchbox> lunchboxlist) {
+		C206_CaseStudy.setHeader("LUNCHBOX ORDER LIST");
+		String output = String.format("%-40s %-20s %-20s %-20s %-40s\n", "ID", "DATE", "FOOD", "DRINK", "FRUIT");
+		output += retrievelunchboxorder(lunchboxlist);
+		System.out.println(output);
+	}
 
+	public static lunchbox inputlunchbox() {
+		String id = Helper.readString("Enter id > ");
+		String date = Helper.readString("Enter date > ");
+		String food = Helper.readString("Enter food > ");
+		String drink = Helper.readString(" Enter drink > ");
+		String fruit = Helper.readString("Enter fruit> ");
+		lunchbox acc = new lunchbox(id, date, food, drink, fruit);
+		System.out.println("Lunchbox added!");
+		return acc;
+	}
+
+	public static void addlunchbox(ArrayList<lunchbox> lunchboxlist, lunchbox LB) {
+		lunchboxlist.add(LB);
+	}
+
+	public static String retrievelunchboxorder(ArrayList<lunchbox> lunchboxlist) {
+	  		String output= "";
+	  		for(int i=0; i<lunchboxlist.size();i++) {
+	  			output+= String.format("%-40s %-20s %-20s %-20s %-40s\n", lunchboxlist.get(i).getId(), lunchboxlist.get(i).getDate(), lunchboxlist.get(i).getFood(), lunchboxlist.get(i).getDrink(), lunchboxlist.get(i).getFruit());
+	  		}
+	  		return output;
+	}
+	  	
+
+	public static void deletelunchorder(ArrayList<lunchbox> lunchboxlist, lunchbox LB) {
+			    boolean idFound = false;
+
+			    for (int i = 0; i < lunchboxlist.size(); i++) {
+			      if (LB.getId().equals(lunchboxlist.get(i).getId())) {
+			        idFound = true;
+			        if (idFound == false) {
+			          System.out.println("order not found");
+			        } else {
+			          lunchboxlist.remove(i);
+			          System.out.println("order deleted!");
+			        }
+			        lunchboxlist.remove(LB);
+	  
+
+
+      }
+
+			    }
+	}
 }
+
