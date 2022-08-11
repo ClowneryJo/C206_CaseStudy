@@ -87,11 +87,7 @@ public class C206_CaseStudy {
 				"AVAILABLE");
 		 output += retrieveAllItems(menuList);	
 		System.out.println(output);
-=======
 
-
-		
->>>>>>> branch 'master' of https://github.com/ClowneryJo/C206_CaseStudy.git
 	}
 
 }
