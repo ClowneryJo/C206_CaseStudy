@@ -10,7 +10,7 @@ public class C206_CaseStudy {
 		menuList.add(new Items("Fried Rice", "3.50" , "YES" ));
 		menuList.add(new Items("Nasi Lemak", "2.50" , "YES" ));
 		
-		menuList.add(new Items("Fish and Chips", "5.50" , "YES" ));
+		menuList.add(new Items("Fish and Chip", "5.50" , "YES" ));
 		menuList.add(new Items("Aglio olio", "3.50" , "YES" ));
 		
 		menuList.add(new Items("Vegetarian bee hoon", "2.50" , "YES" ));
