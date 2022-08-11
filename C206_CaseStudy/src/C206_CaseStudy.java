@@ -8,7 +8,8 @@ public class C206_CaseStudy {
 		ArrayList<Items> menuList = new ArrayList<Items>();
 		ArrayList<userAccount> accountList = new ArrayList<userAccount>();
 		ArrayList<lunchbox> lunchboxlist = new ArrayList<lunchbox>();
-		
+		ArrayList<orderBill> orderBillList = new ArrayList<orderBill>();
+
 		menuList.add(new Items("Chicken Rice", "3.00", "YES"));
 		menuList.add(new Items("Fried Rice", "3.50", "YES"));
 		menuList.add(new Items("Nasi Lemak", "2.50", "YES"));
@@ -29,7 +30,7 @@ public class C206_CaseStudy {
 
 		int option = 0;
 
-		while (option != 3) {
+		while (option != 4) {
 
 			C206_CaseStudy.menu();
 			option = Helper.readInt("Enter an option > ");
@@ -52,7 +53,7 @@ public class C206_CaseStudy {
 						userAccount acc = inputaccount();
 						C206_CaseStudy.deleteacc(accountList, acc);
 					} else if (option2 == 4) {
-						C206_CaseStudy.menu();
+						//C206_CaseStudy.menu();
 					} else {
 						System.out.println("Invalid option");
 					}
@@ -86,11 +87,45 @@ public class C206_CaseStudy {
 				C206_CaseStudy.viewAllItems(menuList);
 
 			} else if (option == 3) {
+				C206_CaseStudy.viewAllItems(menuList);
+
+				int option4 = 0;
+
+				while (option4 != 4) {
+
+					C206_CaseStudy.OrderMenu();
+					option4 = Helper.readInt("Enter an option > ");
+
+					if (option4 == 1) {
+						orderBill ob = inputorderBills();
+						C206_CaseStudy.addorderBill(orderBillList, ob);
+					} else if (option4 == 2) {
+						C206_CaseStudy.viewAllorderbill(orderBillList);
+					} else if (option4 == 3) {
+						C206_CaseStudy.deleteOrderBill(orderBillList);
+						System.out.println("Order bill deleted!");
+					} else if (option4 == 4) {
+						//C206_CaseStudy.menu();
+					} else {
+						System.out.println("Invalid option");
+					}
+				}
+			} else if (option == 4) {
 				System.out.println("Bye!");
 			} else {
 				System.out.println("Invalid option");
 			}
 		}
+
+	}
+
+	public static void OrderMenu() {
+		C206_CaseStudy.setHeader("ORDER BILL");
+		System.out.println("1. Add Order Bill");
+		System.out.println("2. View Order Bill");
+		System.out.println("3. Delete Order Bill");
+		System.out.println("4. Main Menu");
+		Helper.line(80, "-");
 
 	}
 
@@ -118,7 +153,8 @@ public class C206_CaseStudy {
 		C206_CaseStudy.setHeader("MENU ITEMS APP");
 		System.out.println("1. User Account");
 		System.out.println("2. Show Menu Items");
-		System.out.println("3. Quit");
+		System.out.println("3. Order Bill");
+		System.out.println("4. Quit");
 		Helper.line(80, "-");
 
 	}
@@ -239,33 +275,111 @@ public class C206_CaseStudy {
 	}
 
 	public static String retrievelunchboxorder(ArrayList<lunchbox> lunchboxlist) {
-	  		String output= "";
-	  		for(int i=0; i<lunchboxlist.size();i++) {
-	  			output+= String.format("%-40s %-20s %-20s %-20s %-40s\n", lunchboxlist.get(i).getId(), lunchboxlist.get(i).getDate(), lunchboxlist.get(i).getFood(), lunchboxlist.get(i).getDrink(), lunchboxlist.get(i).getFruit());
-	  		}
-	  		return output;
+		String output = "";
+		for (int i = 0; i < lunchboxlist.size(); i++) {
+			output += String.format("%-40s %-20s %-20s %-20s %-40s\n", lunchboxlist.get(i).getId(),
+					lunchboxlist.get(i).getDate(), lunchboxlist.get(i).getFood(), lunchboxlist.get(i).getDrink(),
+					lunchboxlist.get(i).getFruit());
+		}
+		return output;
 	}
-	  	
 
 	public static void deletelunchorder(ArrayList<lunchbox> lunchboxlist, lunchbox LB) {
-			    boolean idFound = false;
+		boolean idFound = false;
 
-			    for (int i = 0; i < lunchboxlist.size(); i++) {
-			      if (LB.getId().equals(lunchboxlist.get(i).getId())) {
-			        idFound = true;
-			        if (idFound == false) {
-			          System.out.println("order not found");
-			        } else {
-			          lunchboxlist.remove(i);
-			          System.out.println("order deleted!");
-			        }
-			        lunchboxlist.remove(LB);
-	  
+		for (int i = 0; i < lunchboxlist.size(); i++) {
+			if (LB.getId().equals(lunchboxlist.get(i).getId())) {
+				idFound = true;
+				if (idFound == false) {
+					System.out.println("order not found");
+				} else {
+					lunchboxlist.remove(i);
+					System.out.println("order deleted!");
+				}
+				lunchboxlist.remove(LB);
 
+			}
 
-      }
+		}
+	}
 
-			    }
+	public static orderBill inputorderBills() {
+		Helper.line(80, "-");
+		System.out.println("ADD ORDER BILL");
+		Helper.line(80, "-");
+
+		String id = Helper.readString("Enter id > ");
+		String date = Helper.readString("Enter date > ");
+		String meal = Helper.readString("Enter meal > ");
+		String drink = Helper.readString("Enter drink > ");
+		String fruit = Helper.readString("Enter fruit > ");
+		double price = Helper.readDouble("Enter price > ");
+
+		orderBill ob = new orderBill(id, date, meal, drink, fruit, price);
+		return ob;
+	}
+
+	public static void addorderBill(ArrayList<orderBill> orderBillList, orderBill ob) {
+		orderBillList.add(ob);
+		System.out.println("Order Bill Added!");
+	}
+
+	public static String retrieveorderBills(ArrayList<orderBill> orderBillList) {
+
+		String output = "";
+
+		for (int i = 0; i < orderBillList.size(); i++) {
+			orderBill orderBilllist = orderBillList.get(i);
+			output += String.format("%-10s %-30s %-20s %-15s %-40s %-20.2f\n", orderBilllist.getId(),
+					orderBilllist.getDate(), orderBilllist.getMeal(), orderBilllist.getDrink(),
+					orderBilllist.getFruit(), orderBilllist.getPrice());
+		}
+
+		return (output);
+	}
+
+	private static void viewAllorderbill(ArrayList<orderBill> orderBillList) {
+		Helper.line(80, "-");
+		System.out.println("VIEW ORDER BILL");
+		Helper.line(80, "-");
+
+		String output = String.format("%-10s %-30s %-20s %-15s %-40s %-20s\n", "ORDER ID", "DATE", "MEAL", "DRINK",
+				"FRUIT", "PRICE");
+		output += retrieveorderBills(orderBillList);
+
+		System.out.println(output);
+	}
+
+//		  public static boolean DeleteOrderBill(ArrayList<orderBill> orderBillList, String id) {
+//			    boolean isDeleted = false;
+//
+//			    for (int i = 0; i < orderBillList.size(); i++) {
+//			      String obID = orderBillList.get(i).getId();
+//			      if (id == obID) {
+//			        isDeleted = true;
+//			      }
+//
+//			    }
+//			    return isDeleted;
+//			  }
+//		  
+	public static void deleteOrderBill(ArrayList<orderBill> orderBillList) {
+		Helper.line(80, "-");
+		System.out.println("DELETE ORDER BILL");
+		Helper.line(80, "-");
+
+		boolean orderBillFound = false;
+		String orderBillDelete = Helper.readString("Enter order id to delete > ");
+		for (int i = 0; i < orderBillList.size(); i++) {
+			if (orderBillDelete.equals(orderBillList.get(i).getId())) {
+				orderBillFound = true;
+				if (orderBillFound == false) {
+					System.out.println("Menu description given not found!");
+				} else {
+					orderBillList.remove(i);
+					System.out.println("Deleted successfully!");
+				}
+			}
+		}
 	}
 }
-
