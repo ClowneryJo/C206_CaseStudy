@@ -78,6 +78,7 @@ public class C206_CaseStudy {
 		}
 		return output;
 	}
+	
 	public static void viewAllItems(ArrayList<Items> menuList) {
 		C206_CaseStudy.setHeader("Menu LIST");
 		String output = String.format("%-20s %-15s %-10s\n", "ITEM", "COST",
