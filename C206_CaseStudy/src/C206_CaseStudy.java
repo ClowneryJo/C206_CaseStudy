@@ -1,19 +1,13 @@
-<<<<<<< HEAD
+
 
 import java.util.ArrayList;
 
-=======
->>>>>>> branch 'master' of https://github.com/ClowneryJo/C206_CaseStudy.git
 public class C206_CaseStudy {
 
 	public static void main(String[] args) {
-<<<<<<< HEAD
-		ArrayList<Items> menuList = new ArrayList<Items>();
-=======
-		// TODO Auto-generated method stub
->>>>>>> branch 'master' of https://github.com/ClowneryJo/C206_CaseStudy.git
 
-<<<<<<< HEAD
+		ArrayList<Items> menuList = new ArrayList<Items>();
+
 		menuList.add(new Items("Chicken Rice", "3.00" , "YES" ));
 		menuList.add(new Items("Fried Rice", "3.50" , "YES" ));
 		menuList.add(new Items("Nasi Lemak", "2.50" , "YES" ));
