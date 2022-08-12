@@ -75,7 +75,7 @@ public class C206_CaseStudy {
 					} else if (option3 == 2) {
 						C206_CaseStudy.viewlunchboxorder(lunchboxlist);
 					} else if (option3 == 3) {
-						lunchbox acc = inputlunchbox();
+						lunchbox acc = deletelunchbox();
 						C206_CaseStudy.deletelunchorder(lunchboxlist, acc);
 					} else if (option3 == 4) {
 						C206_CaseStudy.menu();
@@ -269,6 +269,15 @@ public class C206_CaseStudy {
 		System.out.println("Lunchbox added!");
 		return acc;
 	}
+	public static lunchbox deletelunchbox() {
+	    String id = Helper.readString("Enter id > ");
+	    String date = Helper.readString("Enter date > ");
+	    String food = Helper.readString("Enter food > ");
+	    String drink = Helper.readString(" Enter drink > ");
+	    String fruit = Helper.readString("Enter fruit> ");
+	    lunchbox acc = new lunchbox(id, date, food, drink, fruit);
+	    return acc;
+	  }
 
 	public static void addlunchbox(ArrayList<lunchbox> lunchboxlist, lunchbox LB) {
 		lunchboxlist.add(LB);
