@@ -4,12 +4,40 @@ import java.util.ArrayList;
 public class C206_CaseStudy {
 
 	public static void main(String[] args) {
-
+		
+		ArrayList<Menu> monthlyMenuList = new ArrayList<Menu>();
 		ArrayList<Items> menuList = new ArrayList<Items>();
 		ArrayList<userAccount> accountList = new ArrayList<userAccount>();
 		ArrayList<lunchbox> lunchboxlist = new ArrayList<lunchbox>();
 		ArrayList<orderBill> orderBillList = new ArrayList<orderBill>();
+		
+		//Add Asian Menu
+		monthlyMenuList.add(new Menu("Asian", "Fried Rice", 2.00, "Yes"));
+		monthlyMenuList.add(new Menu("Asian", "Dumpling Noodle", 3.50, "Yes"));
+		monthlyMenuList.add(new Menu("Asian", "Oyakodon", 3.00, "Yes"));
+		
+		//Add Western Menu
+		monthlyMenuList.add(new Menu("Western", "Tomato Pasta ", 2.50, "Yes"));
+		monthlyMenuList.add(new Menu("Western", "Chicken Cutlet With Fries", 4.00, "Yes"));
+		monthlyMenuList.add(new Menu("Western", "Chicken Tortilla Wrap", 3.00, "Yes"));
+			
 
+		//Add Vegetarian Menu
+		monthlyMenuList.add(new Menu("Vegetarian", "Teriyaki Tofu Rice ", 3.50, "Yes"));
+		monthlyMenuList.add(new Menu("Vegetarian", "Corn Sushi", 2.50, "Yes"));
+		monthlyMenuList.add(new Menu("Vegetarian", "Roasted Chickpea Wrap", 3.00, "Yes"));
+			
+		//Add Drinks Menu
+		monthlyMenuList.add(new Menu("Drinks", "Apple Juice", 1.80, "Yes"));
+		monthlyMenuList.add(new Menu("Drinks", "Soymilk", 2.00, "Yes"));
+		monthlyMenuList.add(new Menu("Drinks", "Ice Chocolate", 1.50, "Yes"));
+
+		//Add Fruits Menu
+		monthlyMenuList.add(new Menu("Fruits", "Watermelon", 1.20, "Yes"));
+		monthlyMenuList.add(new Menu("Fruits", "Pineapple", 1.40, "Yes"));
+		monthlyMenuList.add(new Menu("Fruits", "Grapes", 1.40, "Yes"));
+		
+		//Order Menu
 		menuList.add(new Items("Chicken Rice", "3.00", "YES"));
 		menuList.add(new Items("Fried Rice", "3.50", "YES"));
 		menuList.add(new Items("Nasi Lemak", "2.50", "YES"));
@@ -28,63 +56,71 @@ public class C206_CaseStudy {
 		menuList.add(new Items("Watermelon", "0.80", "YES"));
 		menuList.add(new Items("Banana", "0.80", "YES"));
 
+		
 		int option = 0;
 
-		while (option != 4) {
+		while (option != 5) {
 
 			C206_CaseStudy.menu();
 			option = Helper.readInt("Enter an option > ");
 
 			if (option == 1) {
-
+				
 				int option2 = 0;
-
+				C206_CaseStudy.MonthlyMenu();
+				
 				while (option2 != 4) {
+					
+					option = Helper.readInt("Enter an option > ");
+								
+					if(option == 1) {
+						//View monthly menu
+						C206_CaseStudy.viewMonthlyMenu(monthlyMenuList);				
+					} else if (option == 2) {
+						//Create monthly menu
+						Menu addMonthlyMenu = createMenu();
+						C206_CaseStudy.createMonthlyMenu(monthlyMenuList, addMonthlyMenu);
+						System.out.println("Monthly Menu Successfully Added!");
 
-					C206_CaseStudy.AcctMenu();
-					option2 = Helper.readInt("Enter an option > ");
-
-					if (option2 == 1) {
-						C206_CaseStudy.viewAllAccount(accountList);
-					} else if (option2 == 2) {
-						userAccount acc = inputaccount();
-						C206_CaseStudy.addacc(accountList, acc);
-					} else if (option2 == 3) {
-						userAccount acc = inputaccount();
-						C206_CaseStudy.deleteacc(accountList, acc);
-					} else if (option2 == 4) {
-						//C206_CaseStudy.menu();
+					} else if (option == 3) {
+						// Delete monthly menu
+						C206_CaseStudy.deleteMonthlyMenu(monthlyMenuList);
+						
+					} else if (option == 4){
+						C206_CaseStudy.menu();
+						
 					} else {
-						System.out.println("Invalid option");
+						System.out.println("Invalid option.");
 					}
-				}
-
+				}	
+													
 			} else if (option == 2) {
-				C206_CaseStudy.viewAllItems(menuList);
 
 				int option3 = 0;
 
 				while (option3 != 4) {
 
-					C206_CaseStudy.LBMenu();
+					C206_CaseStudy.AcctMenu();
 					option3 = Helper.readInt("Enter an option > ");
 
 					if (option3 == 1) {
-						lunchbox acc = inputlunchbox();
-						C206_CaseStudy.addlunchbox(lunchboxlist, acc);
+						C206_CaseStudy.viewAllAccount(accountList);
+						
 					} else if (option3 == 2) {
-						C206_CaseStudy.viewlunchboxorder(lunchboxlist);
+						userAccount acc = inputaccount();
+						C206_CaseStudy.addacc(accountList, acc);
+						
 					} else if (option3 == 3) {
-						lunchbox acc = deletelunchbox();
-						C206_CaseStudy.deletelunchorder(lunchboxlist, acc);
+						userAccount acc = inputaccount();
+						C206_CaseStudy.deleteacc(accountList, acc);
+						
 					} else if (option3 == 4) {
-						C206_CaseStudy.menu();
+						//C206_CaseStudy.menu();
+						
 					} else {
 						System.out.println("Invalid option");
 					}
 				}
-
-				C206_CaseStudy.viewAllItems(menuList);
 
 			} else if (option == 3) {
 				C206_CaseStudy.viewAllItems(menuList);
@@ -93,32 +129,75 @@ public class C206_CaseStudy {
 
 				while (option4 != 4) {
 
-					C206_CaseStudy.OrderMenu();
+					C206_CaseStudy.LBMenu();
 					option4 = Helper.readInt("Enter an option > ");
 
 					if (option4 == 1) {
-						orderBill ob = inputorderBills();
-						C206_CaseStudy.addorderBill(orderBillList, ob);
+						lunchbox acc = inputlunchbox();
+						C206_CaseStudy.addlunchbox(lunchboxlist, acc);
 					} else if (option4 == 2) {
-						C206_CaseStudy.viewAllorderbill(orderBillList);
+						C206_CaseStudy.viewlunchboxorder(lunchboxlist);
 					} else if (option4 == 3) {
-						C206_CaseStudy.deleteOrderBill(orderBillList);
-						System.out.println("Order bill deleted!");
+						lunchbox acc = deletelunchbox();
+						C206_CaseStudy.deletelunchorder(lunchboxlist, acc);
 					} else if (option4 == 4) {
 						//C206_CaseStudy.menu();
 					} else {
 						System.out.println("Invalid option");
 					}
 				}
+
+				C206_CaseStudy.viewAllItems(menuList);
+
 			} else if (option == 4) {
+				C206_CaseStudy.viewAllItems(menuList);
+
+				int option5 = 0;
+
+				while (option5 != 4) {
+
+					C206_CaseStudy.OrderMenu();
+					option5 = Helper.readInt("Enter an option > ");
+
+					if (option5 == 1) {
+						orderBill ob = inputorderBills();
+						C206_CaseStudy.addorderBill(orderBillList, ob);
+						
+					} else if (option5 == 2) {
+						C206_CaseStudy.viewAllorderbill(orderBillList);
+						
+					} else if (option5 == 3) {
+						C206_CaseStudy.deleteOrderBill(orderBillList);
+						System.out.println("Order bill deleted!");
+						
+					} else if (option5 == 4) {
+						//C206_CaseStudy.menu();
+						
+					} else {
+						System.out.println("Invalid option");
+					}
+				}
+			} else if (option == 5) {
 				System.out.println("Bye!");
+				
 			} else {
 				System.out.println("Invalid option");
 			}
 		}
-
 	}
 
+	public static void MonthlyMenu(){
+		Helper.line(80, "-");
+		System.out.println("MONTHLY MENU");
+		Helper.line(80,"-");
+		System.out.println("1. View monthly menu(s)");
+		System.out.println("2. Create new monthly menu");
+		System.out.println("3. Delete monthly menu");
+		System.out.println("4. Main Menu");
+		Helper.line(80, "-");
+	
+	}
+	
 	public static void OrderMenu() {
 		C206_CaseStudy.setHeader("ORDER BILL");
 		System.out.println("1. Add Order Bill");
@@ -151,10 +230,11 @@ public class C206_CaseStudy {
 
 	public static void menu() {
 		C206_CaseStudy.setHeader("MENU ITEMS APP");
-		System.out.println("1. User Account");
-		System.out.println("2. Show Menu Items");
-		System.out.println("3. Order Bill");
-		System.out.println("4. Quit");
+		System.out.println("1. Monthly Menu");
+		System.out.println("2. User Account");
+		System.out.println("3. Show Menu Items");
+		System.out.println("4. Order Bill");
+		System.out.println("5. Quit");
 		Helper.line(80, "-");
 
 	}
@@ -203,8 +283,96 @@ public class C206_CaseStudy {
 
 		return (output);
 	}
+	
+	//MONTHLYMENU
+	
+	//================================= Monthly Menu Option 1 View Items ==================================//
+	public static String availability(boolean availablity) {
+	    String available;
+	    if (availablity == true) {
+	      available = "Yes";
+	    } else {
+	      available = "No";
+	    }
+	    return available;
+	  }
 
+	public static String retrieveMonthlyMenu(ArrayList<Menu> monthlyMenuList) {
+		
+		String output = "";
+		for (int i = 0; i < monthlyMenuList.size(); i++) {
+		  
+			String category = monthlyMenuList.get(i).getCategory();
+			String item = monthlyMenuList.get(i).getItem();
+			double price = monthlyMenuList.get(i).getPrice();
+			String available = C206_CaseStudy.availability(monthlyMenuList.get(i).getIsAvailable());
+					
+		    output += String.format("%-20s %-40s %-20.2f %-10s\n", category ,item ,price ,available); 	
+		}
+		return output;	
+	}
+	
+	public static void viewMonthlyMenu(ArrayList<Menu> monthlyMenuList) {
+		Helper.line(80, "=");
+	    System.out.println("VIEW MONTHLY MENU");
+	    Helper.line(80, "=");
+	    
+	    String output = String.format("%-20s %-40s %-20s %-10s\n", "CATEGORY", "FOOD ITEMS", "COST", "AVAILABILITY");		    
+	    output += retrieveMonthlyMenu(monthlyMenuList);
+	    
+	    System.out.println(output);
+	    
+	}		   
+	
+	//================================= Monthly Menu Option 2 Create New Items ==================================//
+	public static Menu createMenu() {
+	    String category= Helper.readString("Enter category > ");
+	    String items = Helper.readString("Enter food inside of monthly menu > ");
+	    double price = Helper.readDouble("Enter monthly menu price > ");
+	    String available = "Yes";
+	    
+	    Menu addMonthlyMenu = new Menu(category, items, price, available);
+	    return addMonthlyMenu;
+	  }
+	
+	public static void createMonthlyMenu(ArrayList<Menu> monthlyMenuList, Menu addMonthlyMenu) {
+
+	    monthlyMenuList.add(addMonthlyMenu);
+
+	  }
+	
+	
+	//================================= Monthly Menu Option 3 Delete Items ==================================//
+	public static boolean deleteMenu(ArrayList<Menu> monthlyMenuList,  String item) {
+		boolean menuFound = false;
+
+	    for (int i = 0; i < monthlyMenuList.size(); i++) {
+	      if (item.equalsIgnoreCase(monthlyMenuList.get(i).getItem())
+	    		  && monthlyMenuList.get(i).getIsAvailable() == true) {
+
+	        monthlyMenuList.remove(i);
+	        menuFound = true;
+	      	}			      
+	    }
+		return menuFound;
+	}
+	
+	
+	public static void deleteMonthlyMenu(ArrayList<Menu> monthlyMenuList) {
+		String item = Helper.readString("Enter category to remove > ");
+		
+		Boolean menuFound = deleteMenu(monthlyMenuList, item);
+
+	    if (menuFound == false) {
+	      System.out.println("Menu Item given not found!");
+	    } else {
+	      System.out.println("Deleted successfully!");
+	    }
+	}	
+	
 	// USER ACCOUNT
+	
+	//================================= User Account Option 1 View Accounts ==================================//
 	private static void viewAllAccount(ArrayList<userAccount> accountList) {
 		Helper.line(80, "-");
 		System.out.println("VIEW Accounts");
@@ -226,7 +394,8 @@ public class C206_CaseStudy {
 		return acc;
 
 	}
-
+	
+	//================================= User Account Option 2 Add Accounts ==================================//
 	public static void addacc(ArrayList<userAccount> accountList, userAccount acc) {
 
 		accountList.add(acc);
@@ -252,6 +421,8 @@ public class C206_CaseStudy {
 		}
 	}
 
+	
+	//LUNCHBOX MENU
 	public static void viewlunchboxorder(ArrayList<lunchbox> lunchboxlist) {
 		C206_CaseStudy.setHeader("LUNCHBOX ORDER LIST");
 		String output = String.format("%-40s %-20s %-20s %-20s %-40s\n", "ID", "DATE", "FOOD", "DRINK", "FRUIT");
@@ -311,7 +482,10 @@ public class C206_CaseStudy {
 
 		}
 	}
-
+	
+	
+	//ORDER BILL
+	
 	public static orderBill inputorderBills() {
 		Helper.line(80, "-");
 		System.out.println("ADD ORDER BILL");
