@@ -59,7 +59,7 @@ public class C206_CaseStudy {
 		
 		int option = 0;
 
-		while (option != 5) {
+		while (option != 6) {
 
 			C206_CaseStudy.menu();
 			option = Helper.readInt("Enter an option > ");
@@ -124,7 +124,7 @@ public class C206_CaseStudy {
 
 			} else if (option == 3) {
 				C206_CaseStudy.viewAllItems(menuList);
-
+			
 				int option4 = 0;
 
 				while (option4 != 4) {
@@ -178,6 +178,33 @@ public class C206_CaseStudy {
 					}
 				}
 			} else if (option == 5) {
+				C206_CaseStudy.viewAllItems(menuList);
+
+				int option6 = 0;
+
+				while (option6 != 4) {
+
+					C206_CaseStudy.itemMenu();
+					option6 = Helper.readInt("Enter an option > ");
+
+					if (option6 == 1) {
+						Items additems = createItems();
+						C206_CaseStudy.createMonthlyItem(menuList, additems);
+						
+					} else if (option6 == 2) {
+						C206_CaseStudy.deleteMonthlyItem(menuList);
+						System.out.println("Item deleted!");
+					} else if (option6 == 3) {
+						C206_CaseStudy.viewAllItems(menuList);
+											
+					} else if (option6 == 4) {
+						//C206_CaseStudy.menu();
+						
+					} else {
+						System.out.println("Invalid option");
+					}
+				}
+			} else if (option == 6) {
 				System.out.println("Bye!");
 				
 			} else {
@@ -203,6 +230,16 @@ public class C206_CaseStudy {
 		System.out.println("1. Add Order Bill");
 		System.out.println("2. View Order Bill");
 		System.out.println("3. Delete Order Bill");
+		System.out.println("4. Main Menu");
+		Helper.line(80, "-");
+
+	}
+	
+	public static void itemMenu() {
+		C206_CaseStudy.setHeader("ITEM MENU");
+		System.out.println("1. ADD ITEM");
+		System.out.println("2. DELETE ITEM");
+		System.out.println("3. VIEW ITEM");
 		System.out.println("4. Main Menu");
 		Helper.line(80, "-");
 
@@ -234,7 +271,8 @@ public class C206_CaseStudy {
 		System.out.println("2. User Account");
 		System.out.println("3. Show Menu Items");
 		System.out.println("4. Order Bill");
-		System.out.println("5. Quit");
+		System.out.println("5. Add/Delete Main Menu Item");
+		System.out.println("6. Quit");
 		Helper.line(80, "-");
 
 	}
@@ -282,6 +320,50 @@ public class C206_CaseStudy {
 		}
 
 		return (output);
+	}
+	
+	public static Items createItems() {
+	    String items= Helper.readString("Enter item > ");
+	    String cost = Helper.readString("Enter cost > ");
+	    String available = "Yes";
+	    
+	    Items additems = new Items(items, cost, available);
+	    return additems;
+	  }
+	
+	public static void createMonthlyItem(ArrayList<Items> menuList, Items additems) {
+
+	    menuList.add(additems);
+	    System.out.println("Item Added!");
+
+	  }
+	
+	
+	public static boolean deleteItem(ArrayList<Items> menuList,  String item) {
+		boolean itemFound = false;
+
+	    for (int i = 0; i < menuList.size(); i++) {
+	      if (item.equalsIgnoreCase(menuList.get(i).getItem())
+	    		  && menuList.get(i).getIsAvailable() == true) {
+
+	    	  menuList.remove(i);
+	        itemFound = true;
+	      	}			      
+	    }
+		return itemFound;
+	}
+	
+	
+	public static void deleteMonthlyItem(ArrayList<Items> menuList) {
+		String item = Helper.readString("Enter item to remove > ");
+		
+		Boolean itemFound = deleteItem(menuList, item);
+
+	    if (itemFound == false) {
+	      System.out.println("Menu Item given not found!");
+	    } else {
+	      System.out.println("Deleted successfully!");
+	    }
 	}
 	
 	//MONTHLYMENU
