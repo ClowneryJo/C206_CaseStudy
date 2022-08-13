@@ -12,6 +12,10 @@ public class C206_CaseStudyTest {
 	private userAccount A2;
 	private userAccount A3;
 
+	private Items i1;
+	private Items i2;
+	private Items i3;
+	
 	private orderBill o1;
 	private orderBill o2;
 	private orderBill o3;
@@ -34,6 +38,8 @@ public class C206_CaseStudyTest {
 	private ArrayList<userAccount> userAccountList;
 
 	private ArrayList<lunchbox> lunchBoxList;
+	
+	private ArrayList<Items> menuList;
 
 	@Before
 	public void setUp() throws Exception {
@@ -57,6 +63,13 @@ public class C206_CaseStudyTest {
 		A1 = new userAccount("Badi", "Bud123");
 		A2 = new userAccount("Xav", "Xav123");
 		A3 = new userAccount("ZH", "ZH123");
+		
+		menuList = new ArrayList<Items>();
+
+		i1 = new Items("ice cream", "1.00", "yes");
+		i2 = new Items("apple", "0.50","yes");
+		i3 = new Items("water", "0.50", "yes");
+
 
 		userAccountList = new ArrayList<userAccount>();
 
@@ -336,5 +349,64 @@ public class C206_CaseStudyTest {
 		assertEquals("Check that View lunchbox order", testoutput, LB);
 
 	}
+	
+
+	@Test
+	public void viewAllItems() {
+		// fail("Not yet implemented");
+		// write your code here
+		assertNotNull("Test if there is valid item arraylist to add to", menuList);
+
+		String item = C206_CaseStudy.retrieveAllItems(menuList);
+		String testOutput = "";
+		assertEquals("Check that ViewAllItemlist", testOutput, item);
+
+		C206_CaseStudy.createMonthlyItem(menuList, i1);
+		C206_CaseStudy.createMonthlyItem(menuList, i2);
+		assertEquals("Test if that item arraylist size is 2?", 2, menuList.size());
+
+		item = C206_CaseStudy.retrieveAllItems(menuList);
+		testOutput = String.format("%-40s %-20s %-20s\n", "ice cream", "1.00", "yes");
+		testOutput += String.format("%-40s %-20s %-20s\n", "apple", "0.50","yes");
+		
+		assertEquals("Check that ViewAllItemList", testOutput, item);
+
+	}
+	
+	
+	@Test
+	public void testCreateMonthlyItem() {
+		// Test if Item list is not null but empty, so that can add a new item
+		assertNotNull("Test if there is valid Monthly Menu arraylist to add to", menuList);
+
+		// Given an empty list, after adding 3 items, test if the size of the list is 3
+		C206_CaseStudy.createMonthlyItem(menuList, i1);
+		C206_CaseStudy.createMonthlyItem(menuList, i2);
+		C206_CaseStudy.createMonthlyItem(menuList, i3);
+		assertEquals("Test if that Monthly Menu arraylist size is 3?", 3, menuList.size());
+
+		// The item just added is the same as the second item of the list
+		assertSame("Test that Menu Item is added same as 1st item of the list?", i2, menuList.get(1));
+
+	}
+
+	@Test
+	public void testDeleteMonthlyItem() {
+		// Test if Item list is not empty, so that can delete items
+		assertNotNull("Test if there is valid Item Menu arraylist to delete from", menuList);
+
+		// Test that item is removed
+		menuList.remove(i1);
+		assertEquals("Check if item has been removed", 0, menuList.size());
+
+		// Test that item is not available to be deleted
+		C206_CaseStudy.createMonthlyItem(menuList, i1);
+		C206_CaseStudy.createMonthlyItem(menuList, i2);
+		C206_CaseStudy.deleteMonthlyItem(menuList);
+		assertSame("Test lunchbox order is still in the list?", i1, menuList.get(0));
+		assertEquals("Test that the lunchbox order equals 1", 1, menuList.size());
+
+	}
+	
 
 }
