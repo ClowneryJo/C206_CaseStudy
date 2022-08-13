@@ -144,6 +144,25 @@ public class C206_CaseStudyTest {
 		assertEquals("Check that ViewAlluserAccountList", testOutput, acc);
 
 	}
+	
+	@Test
+	public void testaddorderBill() {
+		// Item list is not null, so that can add a new item
+		assertNotNull("Test if there is valid account arraylist to add to", orderBillList);
+
+		// Given an empty list, after adding 1 item, the size of the list is 1
+		C206_CaseStudy.addorderBill(orderBillList, o1);
+		assertEquals("Test if that account arraylist size is 1?", 1, orderBillList.size());
+
+		// The item just added is as same as the first item of the list
+		assertSame("Test that account is added same as 1st item of the list?", o1, orderBillList.get(0));
+
+		// Add another item. test The size of the list is 2?
+		C206_CaseStudy.addorderBill(orderBillList, o2);
+		C206_CaseStudy.addorderBill(orderBillList, o3);
+		assertEquals("Test that account arraylist size is 3?", 3, orderBillList.size());
+		assertSame("Test that account is added same as 3rd item of the list?", o3, orderBillList.get(2));
+	}
 
 	@Test
 	public void testviewAllorderbill() {
@@ -168,26 +187,6 @@ public class C206_CaseStudyTest {
 
 	}
 
-	@Test
-	public void testaddorderBill() {
-		// Item list is not null, so that can add a new item
-		assertNotNull("Test if there is valid account arraylist to add to", orderBillList);
-
-		// Given an empty list, after adding 1 item, the size of the list is 1
-		C206_CaseStudy.addorderBill(orderBillList, o1);
-		assertEquals("Test if that account arraylist size is 1?", 1, orderBillList.size());
-
-		// The item just added is as same as the first item of the list
-		assertSame("Test that account is added same as 1st item of the list?", o1, orderBillList.get(0));
-
-		// Add another item. test The size of the list is 2?
-		C206_CaseStudy.addorderBill(orderBillList, o2);
-		C206_CaseStudy.addorderBill(orderBillList, o3);
-		assertEquals("Test that account arraylist size is 3?", 3, orderBillList.size());
-		assertSame("Test that account is added same as 3rd item of the list?", o3, orderBillList.get(2));
-	}
-
-	
 	@Test
 	public void testdeleteOrderBill() {
 		// Item list is not null, so that can add a new item
