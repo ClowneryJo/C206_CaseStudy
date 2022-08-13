@@ -403,6 +403,8 @@ public class C206_CaseStudy {
 
 	}
 
+	//================================= User Account Option 3 Delete Accounts ==================================//
+	
 	public static void deleteacc(ArrayList<userAccount> accountList, userAccount acc) {
 		boolean accFound = false;
 
@@ -423,6 +425,19 @@ public class C206_CaseStudy {
 
 	
 	//LUNCHBOX MENU
+	
+	//================================= LunchBox Option 1 View LunchBoxes ==================================//
+	
+	public static String retrievelunchboxorder(ArrayList<lunchbox> lunchboxlist) {
+		String output = "";
+		for (int i = 0; i < lunchboxlist.size(); i++) {
+			output += String.format("%-40s %-20s %-20s %-20s %-40s\n", lunchboxlist.get(i).getId(),
+					lunchboxlist.get(i).getDate(), lunchboxlist.get(i).getFood(), lunchboxlist.get(i).getDrink(),
+					lunchboxlist.get(i).getFruit());
+		}
+		return output;
+	}
+	
 	public static void viewlunchboxorder(ArrayList<lunchbox> lunchboxlist) {
 		C206_CaseStudy.setHeader("LUNCHBOX ORDER LIST");
 		String output = String.format("%-40s %-20s %-20s %-20s %-40s\n", "ID", "DATE", "FOOD", "DRINK", "FRUIT");
@@ -430,6 +445,8 @@ public class C206_CaseStudy {
 		System.out.println(output);
 	}
 
+	//================================= LunchBox Option 2 Add LunchBox Item ==================================//
+		
 	public static lunchbox inputlunchbox() {
 		String id = Helper.readString("Enter id > ");
 		String date = Helper.readString("Enter date > ");
@@ -440,6 +457,13 @@ public class C206_CaseStudy {
 		System.out.println("Lunchbox added!");
 		return acc;
 	}
+	
+	public static void addlunchbox(ArrayList<lunchbox> lunchboxlist, lunchbox LB) {
+		lunchboxlist.add(LB);
+	}
+	
+	//================================= LunchBox Option 3 Delete LunchBox Item ==================================//
+	
 	public static lunchbox deletelunchbox() {
 	    String id = Helper.readString("Enter id > ");
 	    String date = Helper.readString("Enter date > ");
@@ -449,20 +473,6 @@ public class C206_CaseStudy {
 	    lunchbox acc = new lunchbox(id, date, food, drink, fruit);
 	    return acc;
 	  }
-
-	public static void addlunchbox(ArrayList<lunchbox> lunchboxlist, lunchbox LB) {
-		lunchboxlist.add(LB);
-	}
-
-	public static String retrievelunchboxorder(ArrayList<lunchbox> lunchboxlist) {
-		String output = "";
-		for (int i = 0; i < lunchboxlist.size(); i++) {
-			output += String.format("%-40s %-20s %-20s %-20s %-40s\n", lunchboxlist.get(i).getId(),
-					lunchboxlist.get(i).getDate(), lunchboxlist.get(i).getFood(), lunchboxlist.get(i).getDrink(),
-					lunchboxlist.get(i).getFruit());
-		}
-		return output;
-	}
 
 	public static void deletelunchorder(ArrayList<lunchbox> lunchboxlist, lunchbox LB) {
 		boolean idFound = false;
@@ -486,6 +496,8 @@ public class C206_CaseStudy {
 	
 	//ORDER BILL
 	
+	//================================= OrderBill Option 1 Add Order Bill ==================================//
+	
 	public static orderBill inputorderBills() {
 		Helper.line(80, "-");
 		System.out.println("ADD ORDER BILL");
@@ -507,6 +519,8 @@ public class C206_CaseStudy {
 		System.out.println("Order Bill Added!");
 	}
 
+	//================================= OrderBill Option 2 Retrieve Order Bill ==================================//
+	
 	public static String retrieveorderBills(ArrayList<orderBill> orderBillList) {
 
 		String output = "";
@@ -533,6 +547,8 @@ public class C206_CaseStudy {
 		System.out.println(output);
 	}
 
+	//================================= OrderBill Option 3 Delete Order Bill ==================================//	
+	
 //		  public static boolean DeleteOrderBill(ArrayList<orderBill> orderBillList, String id) {
 //			    boolean isDeleted = false;
 //
