@@ -269,9 +269,9 @@ public class C206_CaseStudy {
 		C206_CaseStudy.setHeader("MENU ITEMS APP");
 		System.out.println("1. Monthly Menu");
 		System.out.println("2. User Account");
-		System.out.println("3. Show Menu Items");
+		System.out.println("3. Lunchbox Order");
 		System.out.println("4. Order Bill");
-		System.out.println("5. Add/Delete Main Menu Item");
+		System.out.println("5. Main Menu Items");
 		System.out.println("6. Quit");
 		Helper.line(80, "-");
 
@@ -441,7 +441,7 @@ public class C206_CaseStudy {
 	
 	
 	public static void deleteMonthlyMenu(ArrayList<Menu> monthlyMenuList) {
-		String item = Helper.readString("Enter category to remove > ");
+		String item = Helper.readString("Enter item to remove > ");
 		
 		Boolean menuFound = deleteMenu(monthlyMenuList, item);
 
